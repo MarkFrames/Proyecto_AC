@@ -1,7 +1,7 @@
-/*  Arquitectura de Computadores - Ingeniería Informática (Facultad de Informática - EHU)
+/*  Arquitectura de Computadores - Ingenierï¿½a Informï¿½tica (Facultad de Informï¿½tica - EHU)
     Laboratorio de OpenMP - PROYECTO
 
-    fun_s.c        VERSIÓN SECUENCIAL
+    fun_s.c        VERSIï¿½N SECUENCIAL
     Rutinas utilizadas en el programa grupopal.c
 *****************************************************************************************/
 
@@ -14,61 +14,68 @@
 #include "def_gp.h"   // definiciones de constantes y estructuras de datos
 
 
-/* 1 - Función para calcular la distancia entre dos palabras
+/* 1 - Funciï¿½n para calcular la distancia entre dos palabras
        (distancia del coseno)
 
        Entrada:  dos palabras de la variable DIMENSIONES (por referencia)
        Salida:   distancia (double)
 ******************************************************************************************/
 double dist_pal(float *pal1, float *pal2){
-    // POR HACER
-    // Calcular la distancia entre dos elementos (distancia de correlación)
-    return 0.0;
+    int i;
+    double m1 = 0.0, m2 = 0.0, sxy = 0.0, sxx = 0.0, syy = 0.0, r;
+    for (i = 0; i < DIMENSIONES; i++) { m1 += pal1[i]; m2 += pal2[i]; }
+    m1 /= DIMENSIONES;  m2 /= DIMENSIONES;
+    for (i = 0; i < DIMENSIONES; i++) {
+        double dx = pal1[i] - m1, dy = pal2[i] - m2;
+        sxy += dx*dy;  sxx += dx*dx;  syy += dy*dy;
+    }
+    r = sxy / (sqrt(sxx) * sqrt(syy));
+    return 1.0 - (r + 1.0) / 2.0;
 }
 
 
-/* 2 - Función para calcular el grupo más cercano (centroide más cercano)
+/* 2 - Funciï¿½n para calcular el grupo mï¿½s cercano (centroide mï¿½s cercano)
 
-       Entrada:  num_pal  número de palabras, int
-                 pal     matriz de tamaño EMAX x DIMENSIONES
-                 cent     matriz de tamaño num_clusters x DIMENSIONES
-       Salida:   grupo   vector de tamaño EMAX, con el grupo correspondiente a cada palabra
+       Entrada:  num_pal  nï¿½mero de palabras, int
+                 pal     matriz de tamaï¿½o EMAX x DIMENSIONES
+                 cent     matriz de tamaï¿½o num_clusters x DIMENSIONES
+       Salida:   grupo   vector de tamaï¿½o EMAX, con el grupo correspondiente a cada palabra
 ******************************************************************************************/
 void grupo_cercano (int num_pal, float pal[][DIMENSIONES], float cent[][DIMENSIONES], int *grupo){
     // POR HACER
-    // grupo: centroide más cercano a cada elemento; ese elemento es su «grupo»
+    // grupo: centroide mï¿½s cercano a cada elemento; ese elemento es su ï¿½grupoï¿½
 }
 
 
-/* 3 - Validación de la clasificación: compacidad de los grupos y de los centroides
-       Se calcula el índice CVI
+/* 3 - Validaciï¿½n de la clasificaciï¿½n: compacidad de los grupos y de los centroides
+       Se calcula el ï¿½ndice CVI
 
-       Entrada:  pal     palabras del archivo (matriz de tamaño EMAX x DIMENSIONES)
-                 grupos   lista de miembros de los grupos (vector de structs de tamaño num_clusters: palabras y cantidad)
+       Entrada:  pal     palabras del archivo (matriz de tamaï¿½o EMAX x DIMENSIONES)
+                 grupos   lista de miembros de los grupos (vector de structs de tamaï¿½o num_clusters: palabras y cantidad)
                  cent     centroides de los grupos (num_clusters x DIMENSIONES)
-       Salida:   índice CVI
+       Salida:   ï¿½ndice CVI
                  compacidad    compacidad de los grupos
 ******************************************************************************************/
 double validacion (float pal[][DIMENSIONES], struct cluster *grupos, float cent[][DIMENSIONES], float *compacidad){
   // POR HACER
-  // Calcular la compacidad de los grupos: la distancia máxima entre sus miembros
-  // Calcular la dispersión de los grupos: para todos los elementos de cada grupo, calcular la distancia mínima a los centroides de los demás grupos y, después, el mínimo de esas distancias.
-  // Calcular el índice CVI
+  // Calcular la compacidad de los grupos: la distancia mï¿½xima entre sus miembros
+  // Calcular la dispersiï¿½n de los grupos: para todos los elementos de cada grupo, calcular la distancia mï¿½nima a los centroides de los demï¿½s grupos y, despuï¿½s, el mï¿½nimo de esas distancias.
+  // Calcular el ï¿½ndice CVI
   return 0.0;
 }
 
 
-/* 4 - Función para analizar las areas
+/* 4 - Funciï¿½n para analizar las areas
 
-       Entrada:  grupos   lista de miembros de los grupos (vector de structs de tamaño num_clusters: palabras y cantidad)
-                 area     información sobre las areas (EMAX x TEMAS)
-       Salida:   dist_area análisis de las areas: medianas máximas y mínimas, y sus grupos
+       Entrada:  grupos   lista de miembros de los grupos (vector de structs de tamaï¿½o num_clusters: palabras y cantidad)
+                 area     informaciï¿½n sobre las areas (EMAX x TEMAS)
+       Salida:   dist_area anï¿½lisis de las areas: medianas mï¿½ximas y mï¿½nimas, y sus grupos
 ******************************************************************************************/
 void analizar_areas (struct cluster *grupos, float area[][TEMAS], struct analisis *dist_area){
   // POR HACER
-  // Procesar la información de las areas UNESCO entre los miembros de cada grupo:
-  //   Mediana de las medidas de pertenencia a cada área UNESCO.
-  //   Para cada código UNESCO, encontrar las medianas máxima y mínima, e identificar el grupo correspondiente.
+  // Procesar la informaciï¿½n de las areas UNESCO entre los miembros de cada grupo:
+  //   Mediana de las medidas de pertenencia a cada ï¿½rea UNESCO.
+  //   Para cada cï¿½digo UNESCO, encontrar las medianas mï¿½xima y mï¿½nima, e identificar el grupo correspondiente.
 }
 
 
@@ -169,37 +176,37 @@ int calc_centroides (float pal[][DIMENSIONES], float cent[][DIMENSIONES], int *g
     double  dis_cent;
     double  sumas[num_clusters][DIMENSIONES+1];
 
-    fin = 1;     // 1: la simulación ha terminado; 0: hay que continuar
+    fin = 1;     // 1: la simulaciï¿½n ha terminado; 0: hay que continuar
 
-    // Nuevos centroides: medias de las variables de cada dimensión de los miembros
+    // Nuevos centroides: medias de las variables de cada dimensiï¿½n de los miembros
     // grupo: grupo al que pertenece cada palabra
-    // sumas: suma de los valores de las variables de los miembros de cada grupo; el último elemento guarda la cantidad
+    // sumas: suma de los valores de las variables de los miembros de cada grupo; el ï¿½ltimo elemento guarda la cantidad
 
     for (i=0; i<num_clusters; i++)
     for (j=0; j<DIMENSIONES+1; j++)
       sumas[i][j] = 0.0;
 
-    // Se procesan muchas palabras en paralelo, aunque la mayor parte del cálculo
-    // se realiza en una variable de reducción.
+    // Se procesan muchas palabras en paralelo, aunque la mayor parte del cï¿½lculo
+    // se realiza en una variable de reducciï¿½n.
     for (i=0; i<num_pal; i++){
       for (j=0; j<DIMENSIONES; j++)
         sumas[grupo[i]][j] += pal[i][j];  // sumar los valores de los miembros de cada grupo para cada variable
 
-      sumas[grupo[i]][DIMENSIONES] ++;         // el último elemento (DIMENSIONES) guarda la cantidad
+      sumas[grupo[i]][DIMENSIONES] ++;         // el ï¿½ltimo elemento (DIMENSIONES) guarda la cantidad
     }
 
     // Calcular los nuevos centroides de los grupos y decidir si se debe terminar (DELTA1)
     for (i=0; i<num_clusters; i++)
     {
-      if (sumas[i][DIMENSIONES] > 0)        // el grupo no está vacío
+      if (sumas[i][DIMENSIONES] > 0)        // el grupo no estï¿½ vacï¿½o
       {
-        // «Coordenadas» de los nuevos centroides: medias de los miembros
+        // ï¿½Coordenadasï¿½ de los nuevos centroides: medias de los miembros
         for (j=0; j<DIMENSIONES; j++)
           nuevo_cent[i][j] = sumas[i][j] / sumas[i][DIMENSIONES];
 
         // Decidir si se debe terminar
         dis_cent = dist_pal (&nuevo_cent[i][0], &cent[i][0]);
-        if (dis_cent > DELTA1)  fin = 0; // el centroide del grupo se ha movido más que DELTA1; continuar la simulación
+        if (dis_cent > DELTA1)  fin = 0; // el centroide del grupo se ha movido mï¿½s que DELTA1; continuar la simulaciï¿½n
 
         // Copiar el nuevo centroide
         for (j=0; j<DIMENSIONES; j++)
@@ -211,7 +218,7 @@ int calc_centroides (float pal[][DIMENSIONES], float cent[][DIMENSIONES], int *g
 }
 
 
-/* 8 - Guardar los códigos UNESCO y sus números de línea para imprimirlos después
+/* 8 - Guardar los cï¿½digos UNESCO y sus nï¿½meros de lï¿½nea para imprimirlos despuï¿½s
 **************************************************************/
 void inicializar_codigos_unesco(struct unesco cod_unesco[]){
   cod_unesco[0].linea = 8015;
